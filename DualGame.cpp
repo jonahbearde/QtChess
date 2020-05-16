@@ -12,21 +12,15 @@ DualGame::DualGame(QString titleName):ChessBoard(titleName)
     QPushButton *btn_restart=new QPushButton(this);
     QPushButton *btn_exit=new QPushButton(this);
     //设定按钮的样式
-    btn_rollback->setStyleSheet("QPushButton{"
-                                "width: 105px;"
-                                "height: 55px;"
-                                "border-image: url(:/img/rollback.png);"
-                            "}");
-    btn_restart->setStyleSheet("QPushButton{"
-                                "width: 188px;"
-                                "height: 55px;"
-                                "border-image: url(:/img/restart.png);"
-                                "}");
-    btn_exit->setStyleSheet("QPushButton{"
-                                "width: 188px;"
-                                "height: 55px;"
-                                "border-image: url(:/img/exit.png);"
-                                "}");
+    btn_rollback->setStyleSheet("QPushButton{width: 105px; height: 55px; border-image: url(:/img/rollback.png);}"
+                                "QPushButton:hover{width: 105px; height: 55px; border-image: url(:/img/rollback_hover.gif);}"
+                                "QPushButton:pressed{width: 105px; height: 55px; border-image: url(:/img/rollback_pressed.gif);}");
+    btn_restart->setStyleSheet("QPushButton{width: 188px; height: 55px; border-image: url(:/img/restart.png);}"
+                               "QPushButton:hover{width: 188px; height: 55px; border-image: url(:/img/restart_hover.gif);}"
+                               "QPushButton:pressed{width: 188px; height: 55px; border-image: url(:/img/restart_pressed.gif);}");
+    btn_exit->setStyleSheet("QPushButton{width: 188px; height: 55px; border-image: url(:/img/exit.png);}"
+                            "QPushButton:hover{width: 188px; height: 55px; border-image: url(:/img/exit_hover.gif);}"
+                            "QPushButton:pressed{width: 188px; height: 55px; border-image: url(:/img/exit_pressed.gif);}");
     btn_rollback->move(610,150);
     btn_restart->move(565,210);
     btn_exit->move(565,270);

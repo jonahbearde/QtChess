@@ -11,6 +11,7 @@ DualGame::DualGame(QString titleName):ChessBoard(titleName)
     QPushButton *btn_rollback=new QPushButton(this);
     QPushButton *btn_restart=new QPushButton(this);
     QPushButton *btn_exit=new QPushButton(this);
+    //设定按钮的样式
     btn_rollback->setStyleSheet("QPushButton{"
                                 "width: 105px;"
                                 "height: 55px;"
@@ -29,11 +30,13 @@ DualGame::DualGame(QString titleName):ChessBoard(titleName)
     btn_rollback->move(610,150);
     btn_restart->move(565,210);
     btn_exit->move(565,270);
+    //悔棋
     connect(btn_rollback,&QPushButton::clicked,[=](){
              rollback();
     });
     connect(btn_restart,&QPushButton::clicked,[=](){
         QString message="是否重新开始棋局？";
+        //对话框
         if(QMessageBox::Yes==QMessageBox::question(this,"再来一局",message,QMessageBox::Yes|QMessageBox::No,QMessageBox::Yes)){
             //重新部署棋子
             clear();
@@ -41,9 +44,10 @@ DualGame::DualGame(QString titleName):ChessBoard(titleName)
         }
     });
     connect(btn_exit,&QPushButton::clicked,[=](){
-        QString message="是否返回菜单？";
+        QString message="是否返回主菜单？";
         if(QMessageBox::Yes==QMessageBox::question(this,"返回菜单",message,QMessageBox::Yes|QMessageBox::No,QMessageBox::Yes)){
             this->close();
+            //显示主菜单
             MainMenu* mainMenu=new MainMenu();
             mainMenu->show();
         }
@@ -55,6 +59,7 @@ void DualGame::paintEvent(QPaintEvent *){
     QPixmap bg_left,chessBoard,turn;
     bg_left.load(":/img/bg_left.jpg");
     chessBoard.load(":/img/board.png");
+    //画棋盘和背景
     painter.drawPixmap(chessBoard.width(),0,this->width()-chessBoard.width(),this->height(),bg_left);
     painter.drawPixmap(0,0,chessBoard.width(),chessBoard.height(),chessBoard);
     //显示当前阵营
@@ -78,7 +83,7 @@ void DualGame::mousePressEvent(QMouseEvent *event){
     row=getClkPos(prsPos).clkRow;
     col=getClkPos(prsPos).clkCol;
     clkID=getID(prsPos);
-    //如果场上选中的棋子不属于当前阵营
+    //如果场上选中的棋子不属于当前阵营（敌方下完但我方还未走棋）
     if(chessman[selectedID]._side!=curSide)
     {
         //当选中本方棋子时，更新selectedID

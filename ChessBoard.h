@@ -23,10 +23,11 @@ public:
 
     int abs(int);
     int getID(QPoint);//根据鼠标所在点获取棋子的id
-    QPoint startPos(int,int);//根据棋子的行列值得到drawPixmap的初始点参数
-    bool ifLive(int);
-    void init();
-    void clear();
+    QPoint startPos(int,int);//根据棋子的行列值来确定画棋子的初始点参数
+    clkPos getClkPos(QPoint);//得到鼠标点击位置的行和列
+    bool ifLive(int);//棋子是否被吃
+    void init();//初始化棋盘
+    void clear();//重置棋盘
     void rollback();//悔棋
     int getRandNum();
 
@@ -37,7 +38,6 @@ public:
     int offset_x_corner=34;//棋盘左上角点的x偏移
     int offset_y_corner=33;
     int sqLen=60;//相邻两个棋子中心的距离
-    clkPos getClkPos(QPoint);//得到鼠标点击位置的行和列
     int clkID;//定义当前点击到的棋子的id
     int selectedID;//设定当前被选中棋子的id
     int deadID=-1;//被吃掉棋子的id

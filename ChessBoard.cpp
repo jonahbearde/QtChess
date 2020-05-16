@@ -9,6 +9,7 @@ ChessBoard::ChessBoard(QString titleName){
 }
 
 void ChessBoard::init(){
+    //随机阵营
     int n=getRandNum();
     if(n==0){
         curSide=false;
@@ -45,6 +46,7 @@ void ChessBoard::rollback(){
         clkPos pos=vecSteps.last();
         chessman[selectedID]._curRow=pos.clkRow;
         chessman[selectedID]._curCol=pos.clkCol;
+        //将上一步从走法中移除
         vecDead.pop_back();
         vecID.pop_back();
         vecSteps.pop_back();

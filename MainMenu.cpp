@@ -22,11 +22,9 @@ MainMenu::MainMenu(QWidget *parent)
                            "height: 115px;"
                            "border-image: url(:/img/btn_p2p.png);"
                        "}");
-    btn_p2c->setStyleSheet("QPushButton{"
-                           "width: 346px;"
-                           "height: 115px;"
-                           "border-image: url(:/img/btn_p2c.png);"
-                           "}");
+    btn_p2c->setStyleSheet("QPushButton{width: 346px; height: 115px; border-image: url(:/img/btn_p2c.png);}"
+                           "QPushButton:hover{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}"
+                           "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}");
     btn_p2p_ol->setStyleSheet("QPushButton{"
                            "width: 346px;"
                            "height: 115px;"

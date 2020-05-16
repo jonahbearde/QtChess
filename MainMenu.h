@@ -2,7 +2,6 @@
 #define MAINMENU_H
 
 #include <QWidget>
-#include "MyPushButton.h"
 #include <QPushButton>
 
 QT_BEGIN_NAMESPACE

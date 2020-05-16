@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +19,7 @@ SOURCES += \
     ChessBoard.cpp \
     ChessMan.cpp \
     DualGame.cpp \
+    RemoteGame.cpp \
     main.cpp \
     MainMenu.cpp
 
@@ -26,7 +27,8 @@ HEADERS += \
     ChessBoard.h \
     ChessMan.h \
     DualGame.h \
-    MainMenu.h
+    MainMenu.h \
+    RemoteGame.h
 
 FORMS += \
     MainMenu.ui

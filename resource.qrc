@@ -47,5 +47,6 @@
         <file>img/restart.png</file>
         <file>img/rollback.png</file>
         <file>img/btn_p2c_hover.gif</file>
+        <file>img/btn_p2p_hover.gif</file>
     </qresource>
 </RCC>

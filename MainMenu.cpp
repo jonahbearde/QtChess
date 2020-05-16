@@ -17,11 +17,9 @@ MainMenu::MainMenu(QWidget *parent)
     QPushButton* btn_p2p=new QPushButton(this);
     QPushButton* btn_p2c=new QPushButton(this);
     QPushButton* btn_p2p_ol=new QPushButton(this);
-    btn_p2p->setStyleSheet("QPushButton{"
-                           "width: 346px;"
-                           "height: 115px;"
-                           "border-image: url(:/img/btn_p2p.png);"
-                       "}");
+    btn_p2p->setStyleSheet("QPushButton{width: 346px; height: 115px; border-image: url(:/img/btn_p2p.png);}"
+                           "QPushButton:hover{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_hover.gif);}"
+                           "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_hover.gif);}");
     btn_p2c->setStyleSheet("QPushButton{width: 346px; height: 115px; border-image: url(:/img/btn_p2c.png);}"
                            "QPushButton:hover{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}"
                            "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}");

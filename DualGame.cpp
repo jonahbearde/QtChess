@@ -41,7 +41,7 @@ DualGame::DualGame(QString titleName):ChessBoard(titleName)
         }
     });
     connect(btn_exit,&QPushButton::clicked,[=](){
-        QString message="是否返回主菜单？";
+        QString message="是否返回菜单？";
         if(QMessageBox::Yes==QMessageBox::question(this,"返回菜单",message,QMessageBox::Yes|QMessageBox::No,QMessageBox::Yes)){
             this->close();
             MainMenu* mainMenu=new MainMenu();

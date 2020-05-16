@@ -22,12 +22,10 @@ MainMenu::MainMenu(QWidget *parent)
                            "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_pressed.gif);}");
     btn_p2c->setStyleSheet("QPushButton{width: 346px; height: 115px; border-image: url(:/img/btn_p2c.png);}"
                            "QPushButton:hover{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}"
-                           "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_hover.gif);}");
-    btn_p2p_ol->setStyleSheet("QPushButton{"
-                           "width: 346px;"
-                           "height: 115px;"
-                           "border-image: url(:/img/btn_p2p_ol.png);"
-                           "}");
+                           "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2c_pressed.gif);}");
+    btn_p2p_ol->setStyleSheet("QPushButton{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_ol.png);}"
+                              "QPushButton:hover{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_ol_hover.gif);}"
+                              "QPushButton:pressed{width: 346px; height: 115px; border-image: url(:/img/btn_p2p_ol_pressed.gif);}");
     //移动按钮
     btn_p2p->move(230,this->height()*0.15);
     btn_p2c->move(230,this->height()*0.35);

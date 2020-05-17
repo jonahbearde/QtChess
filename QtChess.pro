@@ -19,7 +19,9 @@ SOURCES += \
     ChessBoard.cpp \
     ChessMan.cpp \
     DualGame.cpp \
-    RemoteGame.cpp \
+    GameClient.cpp \
+    GameLobby.cpp \
+    GameServer.cpp \
     main.cpp \
     MainMenu.cpp
 
@@ -27,8 +29,10 @@ HEADERS += \
     ChessBoard.h \
     ChessMan.h \
     DualGame.h \
-    MainMenu.h \
-    RemoteGame.h
+    GameClient.h \
+    GameLobby.h \
+    GameServer.h \
+    MainMenu.h
 
 FORMS += \
     MainMenu.ui

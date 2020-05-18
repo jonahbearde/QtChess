@@ -1,8 +1,12 @@
 #include "MainMenu.h"
 #include "DualGame.h"
+#include "GameLobby.h"
 #include "ui_MainMenu.h"
 #include <QPainter>
+#include <QMessageBox>
 #include <QPixmap>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QTimer>
 #include <QFile>
 
@@ -30,14 +34,24 @@ MainMenu::MainMenu(QWidget *parent)
     btn_p2p->move(230,this->height()*0.15);
     btn_p2c->move(230,this->height()*0.35);
     btn_p2p_ol->move(230,this->height()*0.55);
-    //双人模式场景
-    DualGame* dualScene=new DualGame("双人对战");
+
     connect(btn_p2p,&QPushButton::clicked,[=](){
             this->close();
+            //双人模式场景
+            DualGame* dualScene=new DualGame("双人对战");
             dualScene->show();
     });
-    connect(btn_p2p_ol,&QPushButton::clicked,[](){
-
+    connect(btn_p2p_ol,&QPushButton::clicked,[=](){
+            QString txtLabel="请输入昵称";
+            QLineEdit::EchoMode echoMode=QLineEdit::Normal;
+            bool ok=false;
+            QString text=QInputDialog::getText(this,"",txtLabel,echoMode,"",&ok);
+            if(ok && !text.isEmpty()){
+                this->close();
+                //加载大厅
+                GameLobby* lobby=new GameLobby(text);
+                lobby->show();
+            }
     });
 }
 void MainMenu::paintEvent(QPaintEvent *event)

@@ -1,6 +1,7 @@
 #include "GameLobby.h"
 
-GameLobby::GameLobby(QWidget *parent) : QWidget(parent)
-{
-
+GameLobby::GameLobby(QString username){
+    setWindowTitle(username+" 的游戏大厅");
+    setFixedSize(400,300);
+    this->username=username;
 }

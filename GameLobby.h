@@ -3,13 +3,15 @@
 
 #include <QObject>
 #include <QWidget>
+#include <QTcpSocket>
 
 class GameLobby : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameLobby(QWidget *parent = nullptr);
-
+    GameLobby(QString username);
+    QTcpSocket* clientSocket=new QTcpSocket(this);
+    QString username;
 signals:
 
 };

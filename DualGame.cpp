@@ -80,7 +80,7 @@ void DualGame::mousePressEvent(QMouseEvent *event){
     //如果场上选中的棋子不属于当前阵营（敌方下完但我方还未走棋）
     if(chessman[selectedID]._side!=curSide)
     {
-        //当选中本方棋子时，更新selectedID
+        //当选中本方棋子时，并且为本方阵营，更新selectedID
         if(clkID>-1 && chessman[clkID]._side==curSide)
         {
             selectedID=clkID;
@@ -139,8 +139,7 @@ void DualGame::drawChessman(QPainter& painter, int id){
         QPoint startPt=startPos(chessman[id]._curRow,chessman[id]._curCol);
         QPixmap imgSl=chessman[id]._imgSl;
         painter.drawPixmap(startPt,imgSl);
-    }else
-    {
+    }else{
         int count=vecDead.count(id);//查看该棋子是否在死亡列表中
         if(!count){
             QPoint startPt=startPos(chessman[id]._curRow,chessman[id]._curCol);

@@ -19,9 +19,8 @@ SOURCES += \
     ChessBoard.cpp \
     ChessMan.cpp \
     DualGame.cpp \
-    GameClient.cpp \
     GameLobby.cpp \
-    GameServer.cpp \
+    MyTextEdit.cpp \
     main.cpp \
     MainMenu.cpp
 
@@ -29,10 +28,9 @@ HEADERS += \
     ChessBoard.h \
     ChessMan.h \
     DualGame.h \
-    GameClient.h \
     GameLobby.h \
-    GameServer.h \
-    MainMenu.h
+    MainMenu.h \
+    MyTextEdit.h
 
 FORMS += \
     MainMenu.ui

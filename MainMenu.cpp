@@ -47,10 +47,13 @@ MainMenu::MainMenu(QWidget *parent)
             bool ok=false;
             QString text=QInputDialog::getText(this,"",txtLabel,echoMode,"",&ok);
             if(ok && !text.isEmpty()){
-                this->close();
+                this->hide();
                 //加载大厅
                 GameLobby* lobby=new GameLobby(text);
                 lobby->show();
+                connect(lobby,&GameLobby::closeLobby,[=](){
+                    this->show();
+                });
             }
     });
 }

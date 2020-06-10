@@ -2,39 +2,27 @@
 #include <QPainter>
 #include <QTime>
 
-ChessBoard::ChessBoard(QString titleName){
+ChessBoard::ChessBoard(QString titleName,bool format){
+    this->format=format;
     setWindowTitle(titleName);
     setFixedSize(800,600);
-    init();
+    init(format);
 }
 
-void ChessBoard::init(){
-    //随机阵营
-    int n=getRandNum();
-    if(n==0){
-        curSide=false;
-        selectedID=20;
-    }else{
-        curSide=true;
-        selectedID=4;
-    }
+void ChessBoard::init(bool format){
+    curSide=false;
+    //红先走
+    selectedID=20;
     for(int id=0;id<32;id++)
     {
-        chessman[id].init(id);
+        chessman[id].init(id,format);
     }
 }
 
 void ChessBoard::clear(){
-    init();
+    init(format);
     curSide=false;
-    int n=getRandNum();
-    if(n==0){
-        curSide=false;
-        selectedID=20;
-    }else{
-        curSide=true;
-        selectedID=4;
-    }
+    selectedID=20;
     vecID.clear();
     vecSteps.clear();
     vecDead.clear();
@@ -115,7 +103,18 @@ bool ChessBoard::ifLive(int id)
     return !(bool)count;
 }
 
+void ChessBoard::rotate(){
+    for(int id=0;id<32;id++){
+        chessman[id]._curRow=9-chessman[id]._curRow;
+    }
+}
+
 bool ChessBoard::canMove(int clkRow,int clkCol){
+    //如果是黑棋下则旋转棋盘
+    if(format==true){
+        rotate();
+        clkRow=9-clkRow;
+    }
     //调用不同类型棋子的规则
     switch (chessman[selectedID]._type) {
     case ChessMan::CHE: return canMoveCHE(clkRow,clkCol);

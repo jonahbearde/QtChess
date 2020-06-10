@@ -47,5 +47,38 @@
         <file>img/watch.gif</file>
         <file>img/watch_hover.gif</file>
         <file>img/watch_pressed.gif</file>
+        <file>chess/BING_B.GIF</file>
+        <file>chess/BING_BS.GIF</file>
+        <file>chess/BING_R.GIF</file>
+        <file>chess/BING_RS.GIF</file>
+        <file>chess/blank.GIF</file>
+        <file>chess/CHE_B.GIF</file>
+        <file>chess/CHE_BS.GIF</file>
+        <file>chess/CHE_R.GIF</file>
+        <file>chess/CHE_RS.GIF</file>
+        <file>chess/JIANG_B.GIF</file>
+        <file>chess/JIANG_BD.GIF</file>
+        <file>chess/JIANG_BS.GIF</file>
+        <file>chess/JIANG_R.GIF</file>
+        <file>chess/JIANG_RD.GIF</file>
+        <file>chess/JIANG_RS.GIF</file>
+        <file>chess/laststep.GIF</file>
+        <file>chess/MA_B.GIF</file>
+        <file>chess/MA_BS.GIF</file>
+        <file>chess/MA_R.GIF</file>
+        <file>chess/MA_RS.GIF</file>
+        <file>chess/PAO_B.GIF</file>
+        <file>chess/PAO_BS.GIF</file>
+        <file>chess/PAO_R.GIF</file>
+        <file>chess/PAO_RS.GIF</file>
+        <file>chess/SHI_B.GIF</file>
+        <file>chess/SHI_BS.GIF</file>
+        <file>chess/SHI_R.GIF</file>
+        <file>chess/SHI_RS.GIF</file>
+        <file>chess/XIANG_B.GIF</file>
+        <file>chess/XIANG_BS.GIF</file>
+        <file>chess/XIANG_R.GIF</file>
+        <file>chess/XIANG_RS.GIF</file>
+        <file>img/icon.png</file>
     </qresource>
 </RCC>

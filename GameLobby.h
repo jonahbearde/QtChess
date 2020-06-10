@@ -28,18 +28,23 @@ signals:
     void closeLobby();
     void invite(QString);
     void cancel(QString);
-    void accept(QString);
+    void accept(QString,bool);
     void called(QString);
     void recvMsg(QString,QString);
+    void playerInGame(QString,QString);
+    void playerExit(QString,QString);
+    void msgInGame(QByteArray);
 private slots:
     void slotConnected();
     void slotRecvData();
     void slotDisconnected();
     void slotInvite(QString);
     void slotCancel(QString);
-    void slotAccept(QString);
+    void slotAccept(QString,bool);
     void slotCalled(QString);
     void slotRecvMsg(QString,QString);
+    void slotPlayerInGame(QString,QString);
+    void slotPlayerExit(QString,QString);
 };
 
 #endif // GAMELOBBY_H

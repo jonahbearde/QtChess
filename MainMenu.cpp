@@ -15,6 +15,7 @@ MainMenu::MainMenu(QWidget *parent)
     , ui(new Ui::MainMenu)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/img/icon.png"));
     setFixedSize(800,600);
     setWindowTitle("中国象棋");
     //创建主菜单按钮
@@ -38,14 +39,14 @@ MainMenu::MainMenu(QWidget *parent)
     connect(btn_p2p,&QPushButton::clicked,[=](){
             this->close();
             //双人模式场景
-            DualGame* dualScene=new DualGame("双人对战");
+            DualGame* dualScene=new DualGame("双人对战",false);
             dualScene->show();
     });
     connect(btn_p2p_ol,&QPushButton::clicked,[=](){
             QString txtLabel="请输入昵称";
             QLineEdit::EchoMode echoMode=QLineEdit::Normal;
             bool ok=false;
-            QString text=QInputDialog::getText(this,"",txtLabel,echoMode,"",&ok);
+            QString text=QInputDialog::getText(this,"中国象棋",txtLabel,echoMode,"",&ok);
             if(ok && !text.isEmpty()){
                 this->hide();
                 //加载大厅

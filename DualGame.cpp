@@ -6,8 +6,9 @@
 #include <QTimer>
 #include <QMessageBox>
 
-DualGame::DualGame(QString titleName):ChessBoard(titleName)
+DualGame::DualGame(QString titleName,bool format):ChessBoard(titleName,format)
 {
+    setWindowIcon(QIcon(":/img/icon.png"));
     QPushButton *btn_rollback=new QPushButton(this);
     QPushButton *btn_restart=new QPushButton(this);
     QPushButton *btn_exit=new QPushButton(this);

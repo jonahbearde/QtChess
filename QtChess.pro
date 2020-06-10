@@ -21,6 +21,7 @@ SOURCES += \
     DualGame.cpp \
     GameLobby.cpp \
     MyTextEdit.cpp \
+    RemoteGame.cpp \
     main.cpp \
     MainMenu.cpp
 
@@ -30,7 +31,8 @@ HEADERS += \
     DualGame.h \
     GameLobby.h \
     MainMenu.h \
-    MyTextEdit.h
+    MyTextEdit.h \
+    RemoteGame.h
 
 FORMS += \
     MainMenu.ui
@@ -42,3 +44,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+RC_ICONS = rcicon.ico

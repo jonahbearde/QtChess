@@ -15,7 +15,7 @@ public:
     TYPE _type;
     QPixmap _img,_imgSl; //定义棋子未选中,选中和死亡时加载的图片
 
-    void init(int id); //初始化棋子
+    void init(int id,bool format); //初始化棋子
 };
 
 #endif // CHESSMAN_H

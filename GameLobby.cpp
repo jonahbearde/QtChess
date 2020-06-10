@@ -1,22 +1,25 @@
 #include "GameLobby.h"
 #include "MyTextEdit.h"
+#include "RemoteGame.h"
 #include <QIcon>
 #include <QStringList>
 #include <QTcpSocket>
 #include <QPixmap>
 #include <QPainter>
 #include <QLabel>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QListWidget>
 #include <QListWidgetItem>
 
 GameLobby::GameLobby(QString username){
+    setWindowIcon(QIcon(":/img/icon.png"));
     this->setFixedSize(600,400);
     this->username=username;
     this->setWindowTitle(username+" 的游戏大厅");
     clientSocket=new QTcpSocket(this);
-    clientSocket->connectToHost("127.0.0.1",9696);
+    clientSocket->connectToHost("192.168.1.3",9696);
     connect(clientSocket,&QTcpSocket::connected,this,&GameLobby::slotConnected);
     connect(clientSocket,&QTcpSocket::readyRead,this,&GameLobby::slotRecvData);
     connect(this,&GameLobby::invite,this,&GameLobby::slotInvite);
@@ -24,6 +27,9 @@ GameLobby::GameLobby(QString username){
     connect(this,&GameLobby::called,this,&GameLobby::slotCalled);
     connect(this,&GameLobby::accept,this,&GameLobby::slotAccept);
     connect(this,&GameLobby::recvMsg,this,&GameLobby::slotRecvMsg);
+    connect(this,&GameLobby::playerInGame,this,&GameLobby::slotPlayerInGame);
+    connect(this,&GameLobby::playerExit,this,&GameLobby::slotPlayerExit);
+
 
 
     listWidget=new QListWidget(this);
@@ -132,7 +138,11 @@ QWidget* GameLobby::createWidget(QString username,QString info){
 
         connect(btn1,&QPushButton::clicked,[=](){
             //接受邀请
-
+            emit accept(username,true);
+            QByteArray buf;
+            buf.append('a').append('7');
+            buf.append(username);
+            clientSocket->write(buf);
         });
         connect(btn2,&QPushButton::clicked,[=](){
             //拒绝邀请
@@ -159,6 +169,15 @@ QWidget* GameLobby::createWidget(QString username,QString info){
         btn2->setStyleSheet("QPushButton{border-image: url(:/img/blank.gif)}"
                                   "QPushButton::hover{border-image: url(:/img/blank.gif)}"
                                   "QPushButton::pressed{border-image: url(:/img/blank.gif)}");
+        btn2->setFixedSize(50,21);
+    }else if(info=="游戏中"){
+        btn1->setStyleSheet("QPushButton{border-image: url(:/img/blank.gif)}"
+                                  "QPushButton::hover{border-image: url(:/img/blank.gif)}"
+                                  "QPushButton::pressed{border-image: url(:/img/blank.gif)}");
+        btn2->setStyleSheet("QPushButton{border-image: url(:/img/blank.gif)}"
+                                  "QPushButton::hover{border-image: url(:/img/blank.gif)}"
+                                  "QPushButton::pressed{border-image: url(:/img/blank.gif)}");
+        btn1->setFixedSize(50,21);
         btn2->setFixedSize(50,21);
     }
 
@@ -231,6 +250,20 @@ void GameLobby::msgHandlerOut(QString msg){
         QString sender=s.section('#',0,0);
         QString content=s.section('#',1,1);
         emit recvMsg(sender,content);
+    }else if(header=='7'){
+        //收到对方接受邀请的信号
+        QString opponent=msg.mid(2);
+        emit accept(opponent,false);
+    }else if(header=='8'){
+        QString s=msg.mid(2);
+        QString player1=s.section('#',0,0);
+        QString player2=s.section('#',1,1);
+        emit playerInGame(player1,player2);
+    }else if(header=='9'){
+        QString s=msg.mid(2);
+        QString player1=s.section('#',0,0);
+        QString player2=s.section('#',1,1);
+        emit playerExit(player1,player2);
     }
 }
 
@@ -252,7 +285,7 @@ void GameLobby::slotRecvData(){
     if(header=='a'){
         msgHandlerOut(msg);
     }else if(header=='b'){
-        msgHandlerIn(msg);
+        emit msgInGame(buf);
     }
 }
 
@@ -284,11 +317,54 @@ void GameLobby::slotCalled(QString caller){
     oldWidget->deleteLater();
 }
 
-void GameLobby::slotAccept(QString opponent){
+void GameLobby::slotAccept(QString opponent,bool myTurn){
+//    QString title;
+//    if(myTurn==false){
+//        title=username+"(红)"+" "+opponent+"(黑)";
+//    }else{
+//        title=username+"(黑)"+" "+opponent+"(红)";
+//    }
+    //加载游戏界面
+    RemoteGame* remote=new RemoteGame(this,username,opponent,clientSocket,"中国象棋",myTurn);
+    //将游戏内的消息转发到RemoteGame处理
+    connect(this,&GameLobby::msgInGame,remote,&RemoteGame::slotMsgHandler);
+    this->hide();
+    remote->show();
 
+    connect(remote,&RemoteGame::closeRemote,[=](){
+        //更换item
+        QListWidgetItem* item=items.find(opponent).value();
+        QWidget* widget=createWidget(opponent,"空闲中");
+        QWidget* oldWidget=listWidget->itemWidget(item);
+        listWidget->setItemWidget(item,widget);
+        oldWidget->deleteLater();
+    });
 }
 
 void GameLobby::slotRecvMsg(QString sender,QString content){
     output->append(QString("<font size=3 color=gray>%1:</font>").arg(sender));
     output->append(QString("<font size=3>%1</font>").arg(content)) ;
+}
+
+void GameLobby::slotPlayerInGame(QString player1,QString player2){
+    QWidget* widget1=createWidget(player1,"游戏中");
+    QWidget* widget2=createWidget(player2,"游戏中");
+    QListWidgetItem* item1=items.find(player1).value();
+    QListWidgetItem* item2=items.find(player2).value();
+    listWidget->setItemWidget(item1,widget1);
+    listWidget->setItemWidget(item2,widget2);
+}
+
+void GameLobby::slotPlayerExit(QString player1,QString player2){
+    QListWidgetItem* item1=items.find(player1).value();
+    QWidget* widget1=createWidget(player1,"空闲中");
+    QWidget* oldWidget1=listWidget->itemWidget(item1);
+    listWidget->setItemWidget(item1,widget1);
+    oldWidget1->deleteLater();
+
+    QListWidgetItem* item2=items.find(player2).value();
+    QWidget* widget2=createWidget(player2,"空闲中");
+    QWidget* oldWidget2=listWidget->itemWidget(item2);
+    listWidget->setItemWidget(item2,widget2);
+    oldWidget2->deleteLater();
 }

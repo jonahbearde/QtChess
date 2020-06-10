@@ -19,14 +19,16 @@ class ChessBoard : public QWidget
 {
     Q_OBJECT
 public:
-    ChessBoard(QString);
+    ChessBoard(QString,bool);
 
     int abs(int);
     int getID(QPoint);//根据鼠标所在点获取棋子的id
     QPoint startPos(int,int);//根据棋子的行列值来确定画棋子的初始点参数
     clkPos getClkPos(QPoint);//得到鼠标点击位置的行和列
+    bool format;
     bool ifLive(int);//棋子是否被吃
-    void init();//初始化棋盘
+    void init(bool);//初始化棋盘
+    void rotate();//旋转棋盘
     void clear();//重置棋盘
     void rollback();//悔棋
     int getRandNum();
